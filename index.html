@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GeoRevise — CIE A-Level Geography</title>
+<title>ExamStar.ai — CIE A-Level Geography</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -112,15 +112,62 @@
   .key-status.unset { background: rgba(248,113,113,0.1); border-color: rgba(248,113,113,0.3); color: var(--danger); }
   footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 4rem; }
   @media (max-width: 640px) { header { padding: 0 1rem; } nav button { font-size: 0.7rem; padding: 0.3rem 0.5rem; } main { padding: 1.25rem; } .hero { padding: 3rem 1.25rem 2.5rem; } }
+
+  /* ── AI TUTOR ── */
+  .tutor-layout { display: grid; grid-template-columns: 260px 1fr; gap: 1.5rem; height: calc(100vh - 180px); min-height: 500px; }
+  @media (max-width: 800px) { .tutor-layout { grid-template-columns: 1fr; height: auto; } }
+  .tutor-sidebar { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem; overflow-y: auto; }
+  .tutor-sidebar h3 { font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .tutor-topic-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 0.55rem 0.85rem; border-radius: 8px; cursor: pointer; font-size: 0.85rem; text-align: left; transition: all 0.15s; width: 100%; }
+  .tutor-topic-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .tutor-topic-btn.active { background: rgba(74,222,128,0.1); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  .tutor-strengths { background: var(--surface2); border-radius: 8px; padding: 0.75rem; font-size: 0.82rem; }
+  .tutor-strengths .strength-tag { display: inline-block; background: rgba(74,222,128,0.15); color: var(--accent); border-radius: 4px; padding: 0.15rem 0.5rem; margin: 0.15rem; font-size: 0.78rem; }
+  .tutor-strengths .weakness-tag { display: inline-block; background: rgba(248,113,113,0.15); color: var(--danger); border-radius: 4px; padding: 0.15rem 0.5rem; margin: 0.15rem; font-size: 0.78rem; }
+  .tutor-chat-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; }
+  .tutor-header { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.85rem; }
+  .tutor-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #4ade80, #38bdf8); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+  .tutor-name { font-weight: 700; font-size: 1rem; }
+  .tutor-status { font-size: 0.8rem; color: var(--accent); }
+  .tutor-messages { flex: 1; overflow-y: auto; padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem; min-height: 300px; max-height: calc(100vh - 400px); }
+  @media (max-width: 800px) { .tutor-messages { max-height: 400px; } }
+  .msg { display: flex; gap: 0.75rem; animation: fadeIn 0.2s ease; }
+  .msg.user { flex-direction: row-reverse; }
+  .msg-avatar { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+  .msg-avatar.dave { background: linear-gradient(135deg, #4ade80, #38bdf8); }
+  .msg-avatar.user { background: var(--surface2); border: 1px solid var(--border); }
+  .msg-bubble { max-width: 80%; padding: 0.75rem 1rem; border-radius: 12px; font-size: 0.9rem; line-height: 1.6; }
+  .msg.dave .msg-bubble { background: var(--surface2); border: 1px solid var(--border); border-bottom-left-radius: 4px; }
+  .msg.user .msg-bubble { background: rgba(74,222,128,0.12); border: 1px solid rgba(74,222,128,0.25); border-bottom-right-radius: 4px; color: var(--text); }
+  .msg-bubble strong { color: var(--accent); }
+  .msg-bubble em { color: var(--accent2); font-style: normal; font-weight: 600; }
+  .msg-bubble ul { margin: 0.5rem 0 0 1.2rem; }
+  .msg-bubble li { margin-bottom: 0.3rem; }
+  .typing-indicator { display: flex; gap: 4px; align-items: center; padding: 0.5rem; }
+  .typing-indicator span { width: 7px; height: 7px; background: var(--muted); border-radius: 50%; animation: bounce 1.2s infinite; }
+  .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes bounce { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
+  .tutor-input-wrap { padding: 1rem 1.25rem; border-top: 1px solid var(--border); display: flex; gap: 0.75rem; align-items: flex-end; }
+  .tutor-input { flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 0.65rem 1rem; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; resize: none; min-height: 44px; max-height: 120px; outline: none; transition: border-color 0.15s; }
+  .tutor-input:focus { border-color: var(--accent); }
+  .tutor-input::placeholder { color: var(--muted); }
+  .tutor-send { background: var(--accent); color: #0e1117; border: none; border-radius: 10px; width: 44px; height: 44px; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: opacity 0.15s; font-weight: 700; }
+  .tutor-send:hover { opacity: 0.85; }
+  .tutor-send:disabled { opacity: 0.4; cursor: not-allowed; }
+  .tutor-quick-btns { padding: 0 1.25rem 0.75rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .quick-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); padding: 0.3rem 0.75rem; border-radius: 20px; cursor: pointer; font-size: 0.8rem; transition: all 0.15s; }
+  .quick-btn:hover { border-color: var(--accent2); color: var(--accent2); }
 </style>
 </head>
 <body>
 <header>
-  <div class="logo">Geo<span>Revise</span></div>
+  <div class="logo">Exam<span>Star.ai</span></div>
   <nav>
     <button class="active" onclick="showSection('home')">Home</button>
     <button onclick="showSection('notes')">Revision Notes</button>
     <button onclick="showSection('papers')">Past Papers</button>
+    <button onclick="showSection('tutor')">&#129302; AI Tutor</button>
     <span class="key-status unset" id="key-status" onclick="showApiModal()" title="Click to set your API key">&#128273; No API Key</span>
   </nav>
 </header>
@@ -128,8 +175,8 @@
 <!-- HOME -->
 <div id="home" class="section active">
   <div class="hero">
-    <div class="hero-badge">CIE A-Level Geography</div>
-    <h1>Revise Smarter.<br><em>Score Higher.</em></h1>
+    <div class="hero-badge">ExamStar.ai &middot; CIE A-Level Geography</div>
+    <h1>ExamStar<em>.ai</em><br><span style="font-size:0.55em;font-weight:400;color:var(--muted);font-family:'DM Sans',sans-serif;letter-spacing:0.01em;">CIE A-Level Geography</span></h1>
     <p>Full-specification revision notes and AI-powered exam practice for CIE A-Level Geography.</p>
     <div class="hero-topics">
       <div class="topic-pill" onclick="goToNotes('population')">&#127757; Population</div>
@@ -2682,15 +2729,86 @@
   </main>
 </div>
 
+<!-- AI TUTOR SECTION -->
+<div id="tutor" class="section">
+  <main style="max-width:1200px;margin:0 auto;padding:1.5rem 2rem;">
+    <div style="margin-bottom:1.25rem;">
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;margin-bottom:0.25rem;">&#129302; AI Tutor — <em style="color:var(--accent);font-style:normal;">Dave</em></h2>
+      <p style="color:var(--muted);font-size:0.9rem;">Your personal CIE A-Level Geography tutor. Ask anything, get explanations, test your knowledge.</p>
+    </div>
+    <div class="tutor-layout">
+      <!-- Sidebar -->
+      <div class="tutor-sidebar">
+        <div>
+          <h3>Topics</h3>
+          <div style="display:flex;flex-direction:column;gap:0.4rem;margin-top:0.5rem;">
+            <button class="tutor-topic-btn active" onclick="setTutorTopic('general',this)">&#127758; General / Any Topic</button>
+            <button class="tutor-topic-btn" onclick="setTutorTopic('population',this)">&#127757; 4. Population</button>
+            <button class="tutor-topic-btn" onclick="setTutorTopic('migration',this)">&#9992;&#65039; 5. Migration</button>
+            <button class="tutor-topic-btn" onclick="setTutorTopic('settlement',this)">&#127961;&#65039; 6. Settlement</button>
+            <button class="tutor-topic-btn" onclick="setTutorTopic('environment',this)">&#127807; 12. Environmental Mgmt</button>
+            <button class="tutor-topic-btn" onclick="setTutorTopic('interdependence',this)">&#128279; 13. Global Interdependence</button>
+          </div>
+        </div>
+        <div>
+          <h3>Quick Actions</h3>
+          <div style="display:flex;flex-direction:column;gap:0.4rem;margin-top:0.5rem;">
+            <button class="tutor-topic-btn" onclick="quickAction('quiz')">&#9997;&#65039; Quiz me on this topic</button>
+            <button class="tutor-topic-btn" onclick="quickAction('explain')">&#128218; Explain a key concept</button>
+            <button class="tutor-topic-btn" onclick="quickAction('essay')">&#128196; Essay plan help</button>
+            <button class="tutor-topic-btn" onclick="quickAction('casestudy')">&#127758; Case study review</button>
+            <button class="tutor-topic-btn" onclick="quickAction('examtips')">&#127919; Exam technique tips</button>
+          </div>
+        </div>
+        <div>
+          <h3 style="margin-bottom:0.5rem;">Session Progress</h3>
+          <div class="tutor-strengths" id="tutor-progress">
+            <p style="color:var(--muted);font-size:0.82rem;">Topics covered this session will appear here as you chat.</p>
+          </div>
+        </div>
+        <div style="margin-top:auto;">
+          <button onclick="clearTutorChat()" style="width:100%;background:none;border:1px solid var(--border);color:var(--muted);padding:0.5rem;border-radius:8px;cursor:pointer;font-size:0.82rem;transition:all 0.15s;" onmouseover="this.style.borderColor='var(--danger)';this.style.color='var(--danger)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">&#128465; Clear conversation</button>
+        </div>
+      </div>
+
+      <!-- Chat panel -->
+      <div class="tutor-chat-wrap">
+        <div class="tutor-header">
+          <div class="tutor-avatar">&#129302;</div>
+          <div>
+            <div class="tutor-name">Dave</div>
+            <div class="tutor-status" id="tutor-status-text">&#128994; Ready to help</div>
+          </div>
+          <div style="margin-left:auto;font-size:0.8rem;color:var(--muted);" id="tutor-topic-label">All topics</div>
+        </div>
+        <div class="tutor-messages" id="tutor-messages">
+          <!-- Welcome message injected by JS -->
+        </div>
+        <div class="tutor-quick-btns" id="tutor-quick-btns">
+          <button class="quick-btn" onclick="sendQuick('What is the demographic transition model?')">DTM explained</button>
+          <button class="quick-btn" onclick="sendQuick('What are the key differences between Ravenstein and Lee?')">Ravenstein vs Lee</button>
+          <button class="quick-btn" onclick="sendQuick('Give me a 20-mark essay plan for a trade question')">Essay plan</button>
+          <button class="quick-btn" onclick="sendQuick('Quiz me with a 6-mark question')">Quick quiz</button>
+          <button class="quick-btn" onclick="sendQuick('What case studies should I know for environmental management?')">Case studies</button>
+        </div>
+        <div class="tutor-input-wrap">
+          <textarea class="tutor-input" id="tutor-input" placeholder="Ask Dave anything about your Geography course..." rows="1" onkeydown="tutorKeydown(event)" oninput="autoResize(this)"></textarea>
+          <button class="tutor-send" id="tutor-send-btn" onclick="sendTutorMessage()">&#10148;</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
 <footer>
-  <p>GeoRevise &middot; CIE A-Level Geography &middot; AI-powered feedback by Claude &middot; For revision purposes only</p>
+  <p>ExamStar.ai &middot; CIE A-Level Geography &middot; AI-powered feedback by Claude &middot; For revision purposes only</p>
 </footer>
 
 <!-- API KEY MODAL -->
 <div class="modal-overlay" id="api-modal">
   <div class="modal">
     <h3>&#128273; Enter your Anthropic API Key</h3>
-    <p>To get AI-powered marking feedback, you need an Anthropic API key. Your key is only stored in memory for this session and sent directly to Anthropic.</p>
+    <p>To use ExamStar.ai's AI-powered marking and tutor features, enter your Anthropic API key below. Your key is stored only in memory for this session and sent directly to Anthropic — we never store it.</p>
     <input type="password" id="api-key-input" placeholder="sk-ant-..." autocomplete="off" spellcheck="false" />
     <div class="modal-actions">
       <button class="btn" onclick="saveApiKey()">Save &amp; Continue</button>
@@ -3665,10 +3783,11 @@ window.showSection = function(id) {
   document.getElementById(id).classList.add('active');
   document.querySelectorAll('nav button').forEach(function(b){ b.classList.remove('active'); });
   var navBtns = document.querySelectorAll('nav button');
-  var map = { home: 0, notes: 1, papers: 2 };
-  navBtns[map[id]].classList.add('active');
+  var map = { home: 0, notes: 1, papers: 2, tutor: 3 };
+  if (map[id] !== undefined) navBtns[map[id]].classList.add('active');
   window.scrollTo(0, 0);
   if (id === 'papers') renderQuestions('all');
+  if (id === 'tutor' && !tutorInitialised) initTutor();
 };
 
 window.goToNotes = function(topic) {
@@ -3936,23 +4055,280 @@ document.addEventListener('DOMContentLoaded', function() {
   showNotesTopic('population');
   renderQuestions('all');
 });
+
+// ── AI TUTOR ─────────────────────────────────────────────────────────────────
+
+var tutorInitialised = false;
+var tutorHistory = [];
+var tutorTopic = 'general';
+var tutorTopicsDiscussed = new Set();
+var tutorIsTyping = false;
+
+var TOPIC_LABELS = {
+  general: `All topics`,
+  population: `Population (Section 4)`,
+  migration: `Migration (Section 5)`,
+  settlement: `Settlement (Section 6)`,
+  environment: `Environmental Management (Section 12)`,
+  interdependence: `Global Interdependence (Section 13)`
+};
+
+var TOPIC_CONTEXT = {
+  general: `The student may ask about any topic from the CIE A-Level Geography specification (Sections 4, 5, 6, 12, 13).`,
+  population: `The student is currently studying Section 4: Population. Key topics: natural increase, birth rate, death rate, the Demographic Transition Model (5 stages), population-resource relationships (Malthus, Boserup, Neo-Malthusian), population policies. Key case studies: Niger (Stage 2, high TFR 7.1), UK (Stage 4), Japan (Stage 5, declining population), Bangladesh (rapid DTM transition), China (One Child Policy).`,
+  migration: `The student is currently studying Section 5: Migration. Key topics: types of migration (internal/international, voluntary/forced, permanent/temporary), causes (economic, social, political, environmental), Lee\'s Push-Pull model, Ravenstein\'s Laws (7 laws), Todaro model for rural-urban migration. Key case studies: Syria refugee crisis, Ukraine-Poland migration, UK-Spain retirement migration, Bihar-Mumbai internal migration, China rural-urban migration.`,
+  settlement: `The student is currently studying Section 6: Settlement Dynamics. Key topics: rural settlement patterns, urbanisation causes and processes, urban land-use models (Burgess concentric zone, Hoyt sector, Harris-Ullman multiple nuclei), urban hierarchy, counter-urbanisation. Key case studies: Isle of Purbeck (rural), Lagos (urbanisation in LIC), Rio de Janeiro, London (HIC urbanisation), Dharavi (informal settlement management), London transport/TfL.`,
+  environment: `The student is currently studying Section 12: Environmental Management. Key topics: energy resources (renewable vs non-renewable), energy security (4As: Availability, Affordability, Accessibility, Acceptability), UK electrical energy strategy, environmental degradation (causes, impacts, management), water management. Key case studies: Drax biomass power station, UK offshore wind (Hornsea, Dogger Bank), Aral Sea degradation and restoration, Amazon deforestation (PPCDAm), Great Barrier Reef, Sahel desertification, ULEZ London, Lower Lea Valley Olympic Park remediation.`,
+  interdependence: `The student is currently studying Section 13: Global Interdependence. Key topics: trade flows (visible/invisible), factors affecting trade, WTO (strengths/limitations, Doha Round failure, Dispute Settlement Mechanism), free trade agreements (EU Single Market, USMCA/NAFTA, ASEAN, AfCFTA), Fairtrade, international debt crisis (causes, HIPC, BRI/debt trap, G20 Common Framework), international aid (bilateral/multilateral, tied aid, effectiveness), tourism (Butler TALC model, Doxey Irridex, carrying capacity, multiplier effect, ecotourism). Key case studies: Senegal groundnuts, Jamaica tourism (all four TALC phases), Barcelona overtourism, Cockpit Country ecotourism, BRAC Bangladesh, Haiti aid failure, Zambia/Ethiopia HIPC debt relief.`
+}
+var WELCOME_MESSAGE = `Hi! I\'m **Dave**, your CIE A-Level Geography tutor. &#128522;
+
+I can help you with:
+- **Explaining concepts** like the DTM, push-pull migration, or the WTO
+- **Testing your knowledge** with practice questions
+- **Planning essays** and structuring 20-mark answers
+- **Reviewing case studies** and making sure you know your examples
+- **Exam technique** — how to pick up marks under time pressure
+
+What would you like to work on today? You can select a specific topic on the left, or just ask me anything!`;
+
+function initTutor() {
+  tutorInitialised = true;
+  addDaveMessage(WELCOME_MESSAGE);
+}
+
+function setTutorTopic(topic, el) {
+  tutorTopic = topic;
+  document.querySelectorAll('.tutor-topic-btn').forEach(function(b){ b.classList.remove('active'); });
+  el.classList.add('active');
+  document.getElementById('tutor-topic-label').textContent = TOPIC_LABELS[topic];
+  if (topic !== 'general') {
+    addDaveMessage('Great — let\'s focus on **' + TOPIC_LABELS[topic] + '**. What would you like to cover? I can explain key concepts, quiz you, help with essay plans, or review case studies.');
+  }
+}
+
+function quickAction(action) {
+  var msgs = {
+    quiz: 'Quiz me with a ' + (tutorTopic !== 'general' ? TOPIC_LABELS[tutorTopic] + ' ' : '') + 'question — pick one at the level of a CIE A-Level exam.',
+    explain: 'What is the most important concept I need to understand in ' + (tutorTopic !== 'general' ? TOPIC_LABELS[tutorTopic] : 'my Geography course') + '?',
+    essay: 'Help me plan a strong 20-mark essay answer. What topic should I practise?',
+    casestudy: 'Which case studies are most important for ' + (tutorTopic !== 'general' ? TOPIC_LABELS[tutorTopic] : 'the whole course') + ' and what key facts do I need to know?',
+    examtips: 'Give me your top exam technique tips for scoring well in CIE A-Level Geography.'
+  };
+  sendMessage(msgs[action]);
+}
+
+function sendQuick(msg) {
+  sendMessage(msg);
+}
+
+function tutorKeydown(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendTutorMessage();
+  }
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+}
+
+window.sendTutorMessage = function() {
+  var input = document.getElementById('tutor-input');
+  var msg = input.value.trim();
+  if (!msg || tutorIsTyping) return;
+  input.value = '';
+  input.style.height = 'auto';
+  sendMessage(msg);
+};
+
+function sendMessage(msg) {
+  var key = sessionStorage.getItem('anthropic_key');
+  if (!key) {
+    showApiModal();
+    return;
+  }
+
+  // Add user message to UI
+  addUserMessage(msg);
+
+  // Track topic
+  tutorTopicsDiscussed.add(tutorTopic);
+  updateProgress();
+
+  // Add to history
+  tutorHistory.push({ role: 'user', content: msg });
+
+  // Show typing indicator
+  showTyping();
+  tutorIsTyping = true;
+  document.getElementById('tutor-send-btn').disabled = true;
+  document.getElementById('tutor-status-text').textContent = '&#9999;&#65039; Dave is thinking...';
+  document.getElementById('tutor-status-text').innerHTML = '&#128992; Dave is thinking...';
+
+  // Build system prompt
+  var systemPrompt = buildSystemPrompt();
+
+  // Call API
+  fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': key,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1000,
+      system: systemPrompt,
+      messages: tutorHistory
+    })
+  }).then(function(r) { return r.json(); }).then(function(data) {
+    hideTyping();
+    tutorIsTyping = false;
+    document.getElementById('tutor-send-btn').disabled = false;
+    document.getElementById('tutor-status-text').innerHTML = '&#128994; Ready to help';
+
+    if (data.error) {
+      addDaveMessage('Sorry, I encountered an error: ' + data.error.message + '. Please check your API key.');
+      return;
+    }
+
+    var reply = data.content && data.content[0] ? data.content[0].text : 'Sorry, I couldn\'t generate a response.';
+    tutorHistory.push({ role: 'assistant', content: reply });
+
+    // Keep history manageable (last 20 turns)
+    if (tutorHistory.length > 40) tutorHistory = tutorHistory.slice(-40);
+
+    addDaveMessage(reply);
+    extractAndUpdateProgress(reply, msg);
+  }).catch(function(err) {
+    hideTyping();
+    tutorIsTyping = false;
+    document.getElementById('tutor-send-btn').disabled = false;
+    document.getElementById('tutor-status-text').innerHTML = '&#128994; Ready to help';
+    addDaveMessage('Sorry, there was a connection error. Please check your internet connection and try again.');
+  });
+}
+
+function buildSystemPrompt() {
+  return `You are Dave, a warm, expert, and encouraging CIE A-Level Geography tutor. Your student is preparing for CIE (Cambridge International Examinations) A-Level Geography, Papers 2 and 4.
+
+CURRENT TOPIC FOCUS: ${TOPIC_CONTEXT[tutorTopic]}
+
+YOUR TEACHING APPROACH:
+- Be conversational, friendly, and encouraging. Celebrate correct answers and gently correct mistakes.
+- Use the Socratic method when appropriate — ask questions to help students work things out themselves rather than always giving direct answers.
+- When explaining concepts, use clear structure: define the concept, explain the mechanism, give a real-world example, then check understanding.
+- For essay help, emphasise: ECONOMIC, SOCIAL, ENVIRONMENTAL, and POLITICAL dimensions; TIME/PLACE/SCALE analysis; synoptic links between sections; named case studies with specific data.
+- When quizzing, give CIE-style questions (e.g. "Explain three ways..." for 6 marks, or "How far do you agree..." for 20 marks). After the student answers, give structured feedback: what they did well, what was missing, what mark you would award and why.
+- Keep responses focused and digestible — usually 150-300 words unless the student needs a longer explanation.
+- Use **bold** for key terms and important points. Use bullet points for lists.
+- If the student seems confused, try a different explanation approach — use an analogy, a diagram description, or a simpler example.
+- ALWAYS end with either a follow-up question, a prompt to test understanding, or an offer to go deeper — keep the conversation active.
+- Track what the student seems to know well and what they struggle with. Adjust difficulty accordingly.
+
+KEY SPECIFICATION CONTENT you know thoroughly: the DTM model, population theories (Malthus, Boserup), migration models (Lee, Ravenstein, Todaro), urban models (Burgess, Hoyt, Harris-Ullman), TALC model (Butler), Doxey Irridex, WTO functions and limitations, HIPC debt relief, Fairtrade, energy security (4As), environmental degradation frameworks.
+
+IMPORTANT: You are specifically trained on the CIE A-Level Geography specification. Do not confuse with other exam boards. Paper 2 covers Population, Migration, Settlement (Sections 4, 5, 6). Paper 4 covers Environmental Management and Global Interdependence (Sections 12, 13). Mark schemes reward: named examples with data, ECONOMIC-SOCIAL-ENVIRONMENTAL-POLITICAL structure, TIME/PLACE/SCALE evaluation, synoptic links between sections.`
+}
+
+function addDaveMessage(text) {
+  var container = document.getElementById('tutor-messages');
+  var div = document.createElement('div');
+  div.className = 'msg dave';
+  div.innerHTML = '<div class="msg-avatar dave">&#129302;</div><div class="msg-bubble">' + formatMessage(text) + '</div>';
+  container.appendChild(div);
+  scrollToBottom();
+}
+
+function addUserMessage(text) {
+  var container = document.getElementById('tutor-messages');
+  var div = document.createElement('div');
+  div.className = 'msg user';
+  div.innerHTML = '<div class="msg-bubble">' + escapeHtml(text) + '</div><div class="msg-avatar user">&#128100;</div>';
+  container.appendChild(div);
+  scrollToBottom();
+}
+
+function showTyping() {
+  var container = document.getElementById('tutor-messages');
+  var div = document.createElement('div');
+  div.className = 'msg dave';
+  div.id = 'typing-indicator';
+  div.innerHTML = '<div class="msg-avatar dave">&#129302;</div><div class="msg-bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>';
+  container.appendChild(div);
+  scrollToBottom();
+}
+
+function hideTyping() {
+  var el = document.getElementById('typing-indicator');
+  if (el) el.remove();
+}
+
+function scrollToBottom() {
+  var container = document.getElementById('tutor-messages');
+  if (container) container.scrollTop = container.scrollHeight;
+}
+
+function formatMessage(text) {
+  var escaped = text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+  return escaped
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/^### (.+)$/gm, '<strong style="font-size:1rem;display:block;margin:0.5rem 0 0.25rem">$1</strong>')
+    .replace(/^## (.+)$/gm, '<strong style="font-size:1.05rem;display:block;margin:0.5rem 0 0.25rem;color:var(--accent2)">$1</strong>')
+    .replace(/^- (.+)$/gm, '<li>$1</li>')
+    .replace(/(<li>[\s\S]*?<\/li>\n?)+/g, function(m){ return '<ul>' + m + '</ul>'; })
+    .replace(/\n\n/g, '<br><br>')
+    .replace(/\n/g, '<br>');
+}
+function escapeHtml(text) {
+  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function extractAndUpdateProgress(reply, userMsg) {
+  // Simple heuristic: look for confidence indicators in the conversation
+  var lower = (reply + ' ' + userMsg).toLowerCase();
+  var progressEl = document.getElementById('tutor-progress');
+
+  var topics = [];
+  if (tutorTopicsDiscussed.size > 0) {
+    tutorTopicsDiscussed.forEach(function(t) {
+      if (t !== 'general') topics.push(TOPIC_LABELS[t].split('(')[0].trim());
+    });
+  }
+
+  if (topics.length === 0) {
+    progressEl.innerHTML = '<p style="color:var(--muted);font-size:0.82rem;">Topics covered this session will appear here as you chat.</p>';
+    return;
+  }
+
+  var html = '<p style="color:var(--muted);font-size:0.8rem;margin-bottom:0.4rem;">Topics this session:</p>';
+  topics.forEach(function(t) {
+    html += '<span class="strength-tag">' + t + '</span>';
+  });
+  html += '<p style="color:var(--muted);font-size:0.78rem;margin-top:0.5rem;">' + tutorHistory.length/2 + ' exchanges so far</p>';
+  progressEl.innerHTML = html;
+}
+
+function updateProgress() {
+  extractAndUpdateProgress('', '');
+}
+
+window.clearTutorChat = function() {
+  tutorHistory = [];
+  tutorTopicsDiscussed.clear();
+  document.getElementById('tutor-messages').innerHTML = '';
+  updateProgress();
+  addDaveMessage('Chat cleared! Ready to start fresh. What would you like to work on?');
+};
+
 </script>
 </body>
-</html>  // ── Paper 4 9696 (3) November 2019 ──────────────────────────────────────
-  { id:'env2019nc_4b', topic:'environment', marks:6, year:'Nov 2019', paper:'Paper 4 (9696/3)', qref:'4(b)',
-    text:'Explain two reasons for reducing the use of fossil fuels in electricity production. [6 marks]',
-    guidance:'Level-marked (6 marks). Three levels: Level 1 (1–2 marks): basic, generic statements naming reasons but with little or no mechanistic explanation — e.g. "fossil fuels cause pollution" or "they will run out" without elaboration. Level 2 (3–4 marks): clear explanation of two distinct reasons, each with some development of the mechanism involved; some supporting detail or named examples. Level 3 (5–6 marks): two reasons explained in real depth, with precise supporting detail, named examples, and clear articulation of the mechanism and consequence — OR more than two reasons with good development throughout. The question asks for TWO reasons — focus on developing each reason rather than listing more reasons superficially. Both environmental and non-environmental reasons are creditworthy: climate change/emissions; air quality; energy security; finite resource depletion; economic costs of fossil fuel price volatility; health impacts; international commitments. Named country or data examples (e.g. UK coal phase-out, China air quality crisis, 2022 European gas crisis) will distinguish higher-level answers.',
-    hints:'Reason 1 — Climate change and greenhouse gas emissions: Burning fossil fuels for electricity is the single largest source of global CO2 emissions — coal produces ~1.0 kg CO2/kWh, gas ~0.5 kg CO2/kWh vs near-zero for renewables. CO2 is a greenhouse gas that traps outgoing longwave radiation, intensifying the greenhouse effect and driving global temperature rise. The IPCC (Sixth Assessment Report, 2021) concluded that global surface temperature had already risen 1.1°C above the pre-industrial baseline and that limiting warming to 1.5°C requires rapid elimination of fossil fuel use. Consequences: sea level rise (thermal expansion + ice melt — 0.2m since 1900, projected 0.5–1.0m+ by 2100); intensified extreme weather (droughts, floods, heatwaves); ocean acidification damaging marine ecosystems (coral bleaching — Great Barrier Reef: 91% of surveyed reefs bleached in 2024). International commitments: the Paris Agreement (196 signatories, 2015) commits nations to limiting warming to 1.5–2°C — requiring electricity sectors to decarbonise by the 2030s–2040s in HICs. UK example: UK committed to coal-free electricity by 2024 (achieved October 2024) and clean power by 2035 as part of its legally-binding net-zero by 2050 target. Reason 2 — Air quality and public health: Fossil fuel combustion releases pollutants beyond CO2: SO2 (sulphur dioxide — causes acid rain, respiratory irritation), NOx (nitrogen oxides — photochemical smog precursor, respiratory harm), PM2.5 and PM10 (fine particulate matter — penetrates deep into lung tissue, cardiovascular harm), and mercury (neurotoxin, accumulates in food chains). The WHO estimates 7 million premature deaths globally per year are attributable to air pollution, of which fossil fuel combustion is the dominant source. In China, coal-fired power station expansion drove severe urban air pollution — Beijing PM2.5 concentrations regularly exceeded 300 µg/m³ in winter (vs WHO guideline of 15 µg/m³ annual mean); acid rain affected ~30% of Chinese territory at peak. Reducing fossil fuel use in power generation directly improves air quality. UK: SO2 emissions fell ~95% between 1970 and 2020 as coal power stations closed, contributing to significant improvements in respiratory disease rates. Reason 3 (if third reason needed) — Energy security and finite resource depletion: Fossil fuels are non-renewable — global proved coal reserves ~130 years at current consumption; oil ~50 years; gas ~50 years. Dependence on fossil fuel imports creates geopolitical vulnerability: Europe's ~55% dependence on Russian gas by 2021 was exposed as a severe strategic weakness when Russia reduced supply following the Ukraine invasion in 2022 — European gas prices rose 10× in 2022, causing energy poverty and industrial shutdowns. Reducing fossil fuel use in electricity and switching to domestic renewable sources (wind, solar, HEP) eliminates import dependence for electricity generation and insulates national economies from fossil fuel price volatility.' },
-
-  { id:'env2019nc_5', topic:'environment', marks:20, year:'Nov 2019', paper:'Paper 4 (9696/3)', qref:'5',
-    text:'Evaluate the success of one country's overall electrical energy strategy in overcoming issues of changes in demand and supply of electricity. [20 marks]',
-    guidance:'Essay — level-marked (20 marks). One clearly named country must be chosen and used consistently throughout. The question asks you to evaluate success in overcoming BOTH changes in DEMAND and changes in SUPPLY — both dimensions must be addressed for full marks. Structure your evaluation around ECONOMIC (cost of the strategy, affordability for consumers, industrial competitiveness), SOCIAL (energy access, fuel poverty, community impacts of new infrastructure), ENVIRONMENTAL (emissions reductions, habitat impacts, renewable footprint), and POLITICAL (policy consistency, international commitments, planning controversies, public acceptance) dimensions. Evaluation should be woven throughout — not saved for a final paragraph. Reference TIME (how has the strategy evolved? Have changes in demand and supply changed over time?), PLACE (which parts of the country face different demand/supply challenges?), and SCALE (household, regional, national grid, international interconnector scale). Synoptic links to other parts of the A-level course will be highly credited — explicitly name any links you make: population growth and urbanisation (4.1/6.2 — driving demand growth); population management and ageing (4.4 — how demographic change alters demand patterns); global interdependence (13 — imported fossil fuels; international electricity interconnectors; COP agreements driving strategy); environmental degradation (12.3 — air and water pollution from energy production as the problem being overcome); settlement management (6.4 — urban smart grids, EV infrastructure). Named data (capacity in GW, generation share as %, cost in £/€, number of homes powered) are essential for Level 3+. Bands: 17–20: sophisticated multi-dimensional evaluation; time/place/scale analysis throughout; explicitly named synoptic links; rich named data; clear, well-supported conclusion. 13–16: good evaluation across demand and supply dimensions; some time/place/scale; at least one synoptic link; clear examples with data. 9–12: covers both demand and supply changes but evaluation may be unbalanced or description-heavy; limited synoptic connection. 5–8: describes the energy strategy without clearly evaluating its success in addressing demand/supply issues. 1–4: very limited.',
-    hints:'UK ELECTRICAL ENERGY STRATEGY (recommended — detailed notes in 12.2): Demand changes and how the strategy addresses them: UK electricity demand peaked around 2005 (~400 TWh/year) and has since FALLEN to ~280–300 TWh/year by 2023 — a counterintuitive reduction in an era of economic growth. Reasons for demand fall: energy efficiency legislation (Building Regulations, appliance efficiency standards, LED lighting — lighting energy use fell ~85% per lumen); deindustrialisation reducing energy-intensive manufacturing; smart meters enabling behavioural change; insulation programmes. Strategy success: demand management has been a genuine success — reducing demand reduces the scale of supply transformation required. However, electrification of heat (heat pumps replacing gas boilers) and transport (EVs replacing petrol cars) will dramatically INCREASE electricity demand again — National Grid ESO projects demand could reach 400–700 TWh/year by 2050. Strategy must plan for this future demand surge: smart charging (EVs charge overnight when demand is low); demand response (shifting flexible loads to off-peak periods); smart grids enabling two-way flow (EV batteries providing grid storage). Supply changes: The UK's electrical energy supply has undergone a remarkable structural transformation: Coal: 40% of generation (2010) → 0% (October 2024, all coal stations closed). Gas (CCGT): ~40% of generation — remains the primary dispatchable backup. Offshore wind: <1% (2010) → ~30% (2023) — the UK has the world's largest installed offshore wind capacity (~14 GW in 2023; Hornsea 1: 1.2 GW; Hornsea 2: 1.4 GW; Dogger Bank A/B/C: 3.6 GW when complete). Nuclear: ~15% (declining as old stations close; Hinkley Point C: 3.2 GW planned, completion now 2031+). Solar PV: ~5% at peak times. Drax biomass: ~5–6% (controversially classified as renewable). Interconnectors: UK imports/exports electricity with France, Netherlands, Belgium, Norway (NSL: 1.4 GW), Denmark (Viking Link: 1.4 GW) — providing supply flexibility. Strategy successes: Grid carbon intensity fell from ~500g CO2/kWh (2010) to ~150g CO2/kWh (2023) — a 70% reduction. Offshore wind costs: Contract for Difference (CfD) strike price fell from £119/MWh (2015) to £37.35/MWh (2022 Dogger Bank), making it the cheapest electricity source ever procured in UK history. Coal phase-out completed. Strategy failures and difficulties: Intermittency remains unresolved — January 2025 cold anticyclone produced very low wind output for two weeks; gas peakers required throughout. Battery storage inadequate at national scale for multi-day wind droughts. Nuclear new build: Hinkley Point C cost has escalated from £18bn (2016) to £35bn+ (2024); delayed to 2031+ — the backbone low-carbon baseload source is not being delivered on time or budget. Gas dependence: UK remains ~40% gas-dependent for electricity; gas prices spiked 10× in 2022 (Russia-Ukraine war), causing energy crisis — household bills doubled; fuel poverty reached 6+ million households. Supply security vs net-zero tension: the UK is legally committed to clean power by 2035 but gas closure requires alternatives not yet in place. Grid infrastructure bottleneck: National Grid ESO estimates £54bn of grid investment needed for 2035 clean power target — planning consent for new transmission lines is contested. PLACE dimension: Scotland generates ~100% of its electricity from renewables; England relies more heavily on gas — geographic variation in success. Northern offshore wind generated in the North Sea must travel south to demand centres — grid capacity is the binding constraint. SYNOPTIC LINKS: 4.1 population growth — UK population growing (partly through immigration, 5.3) increases electricity demand; 4.4 demographic ageing — elderly population less energy-intensive but more vulnerable to fuel poverty; 6.2/6.4 urbanisation and settlement management — smart city grids, EV charging infrastructure, urban heat island effects on demand; 12.3 environmental degradation — coal closure eliminating SO2/NOx emissions that caused acid rain; 13 global interdependence — UK energy strategy interconnected with European grid; COP26 (Glasgow, 2021) commitments binding the UK strategy; critical mineral supply chains for batteries and wind turbines creating new dependencies.' },
-
-  { id:'env2019nc_6', topic:'environment', marks:20, year:'Nov 2019', paper:'Paper 4 (9696/3)', qref:'6',
-    text:'‘Bad management is the main cause of urban degradation.’ How far do you agree with this view? [20 marks]',
-    guidance:'Essay — level-marked (20 marks). ‘How far do you agree’ requires evaluation of the CLAIM — assess evidence for bad management as the MAIN cause, then compare systematically against other causes, reaching a clear conclusion. The evaluative trigger is MAIN — other causes (economic forces, rapid urbanisation, global inequality, political systems, industrial legacy) may be equally or more important than management failure. Structure your evaluation around ECONOMIC (industrial development, poverty, economic growth imperative), SOCIAL (rapid urbanisation and migration, population pressure), ENVIRONMENTAL (industrial legacy, climate interactions), and POLITICAL (governance quality, regulatory enforcement, international drivers) dimensions. Evaluation should be woven throughout. Reference TIME (how has the relative importance of management failure vs other causes changed? Has management improved over time?), PLACE (does the importance of management failure vary between LIC, MIC, and HIC contexts?), and SCALE (local management failure vs national policy vs global economic forces). Synoptic links will be highly credited — explicitly name any links: rapid urbanisation and migration (5.2/6.2 — population pressure overwhelming management capacity); population-resource theory (4.3 — carrying capacity; Malthus vs Boserup on whether management or population is the primary driver); global interdependence (13 — how HIC consumption and trade drive LIC urban degradation independently of local management); environmental degradation causes and constraints (12.3 — the management constraints framework directly applicable here). Detailed named case studies with specific data are essential for Level 3+. Bands: 17–20: sophisticated evaluation comparing management failure against structural causes; time/place/scale throughout; explicitly named synoptic links; detailed case study evidence; well-supported conclusion that addresses ‘main cause’. 13–16: good comparative evaluation with named examples; some time/place/scale; at least one synoptic link. 9–12: some comparison of causes but management failure may dominate without sufficient counter-argument. 5–8: describes urban degradation causes without clearly evaluating the relative importance of management. 1–4: very limited.',
-    hints:'IN AGREEMENT — bad management as a main cause: LAGOS, NIGERIA: Lagos generates approximately 13,000 tonnes of solid waste per day but formal waste collection covers only ~40% of the city. Open dumping at Olusosun landfill (now closed) and informal dumping into the Lagos Lagoon, drainage channels, and street corners is widespread. Management failures: Lagos State Waste Management Authority (LAWMA) has historically been under-resourced, corrupt, and unable to enforce waste separation or informal sector regulation. Open burning of waste generates dioxins and PM2.5. Drainage channel blockage by dumped waste causes seasonal flooding, spreading waterborne disease. However: Lagos's population is growing by 500,000–600,000 per year — equivalent to a city the size of Manchester added annually. Even perfect management would struggle with this growth rate. The management failure cannot be separated from the structural context: a city of 15–22 million with a municipal budget appropriate for a city of 5 million. ULAANBAATAR, MONGOLIA: Air pollution driven by management failure to provide alternative heating infrastructure to raw coal burning in ger districts — 700,000+ individual stoves burning simultaneously in winter produce PM2.5 up to 600× WHO limits. The improved fuel briquette ban (2019) shows what management CAN achieve when political will exists — PM2.5 fell ~50% in two years. The pre-2019 situation was therefore substantially a management failure to implement available solutions. AGBOGBLOSHIE, ACCRA: Ghana's failure to enforce the Basel Convention against e-waste imports, combined with inadequate formal recycling provision, created a toxic informal processing site. Better regulatory management (stricter port inspections; formal recycling infrastructure) could have prevented the worst impacts. UK historically: London's Victorian smog crisis (thousands of deaths in the 1952 Great Smog) was ultimately resolved by the Clean Air Act (1956) — demonstrating that management intervention (legislation) directly caused environmental improvement. The pre-1956 degradation was therefore partly a management failure to legislate against coal burning. AGAINST — other causes equally or more important: Economic forces and the development imperative: In rapidly industrialising MICs (China 2000–2010; India today), economic growth creates urban degradation that precedes and overwhelms management capacity. China's industrial expansion drove severe urban air and water pollution not primarily because of bad management but because of the pace and scale of economic transformation — factories were built before regulations existed; growth was the political priority. The same industries generating the degradation also generate the tax revenue needed for management. A government choosing between economic development (and its pollution) versus environmental management is not simply failing — it is making a rational trade-off given its development stage. Poverty constraining management capacity: LIC city governments (Lagos, Kinshasa, Dhaka) face genuine resource constraints: tax bases too small to fund adequate waste management, water treatment, or enforcement. Lagos State budget ~$1 billion/year for 20 million people ($50/person) vs London ~$20 billion/year for 9 million ($2,200/person). This is not bad management — it is structural under-resourcing rooted in global economic inequality. Blaming Lagos's waste management failure on ‘bad management’ ignores the structural context. Rapid urbanisation outpacing management: Dhaka grew from 1 million (1970) to 22 million (2023) — management systems designed for 5 million cannot serve 22 million regardless of quality. The root cause of degradation is the speed of rural-urban migration (5.2 synoptic link) driven by agricultural displacement and pull of urban employment, not management failure per se. Global economic inequality as a cause: Agbogbloshie's e-waste crisis was caused by HIC consumption patterns and HIC companies exploiting weak LIC enforcement — this is a global economic system failure, not primarily a Lagos management failure. Similarly, deforestation of tropical forests for beef and soy exports degrades urban-adjacent environments through agricultural expansion driven by global commodity demand (13 synoptic link), not local urban management. NUANCED CONCLUSION: Bad management is a genuine and significant cause of urban degradation — the Ulaanbaatar coal ban improvement, London's Clean Air Act, and LAWMA's documented resource misallocation all demonstrate that management quality matters. But ‘main cause’ is too simplistic. The weight of evidence across LIC, MIC, and HIC case studies suggests that: (1) in LICs, structural poverty and rapid urbanisation are at least as important as management quality — even well-managed cities cannot overcome resource constraints; (2) in MICs, economic growth speed and industrial scale overwhelm management; (3) in HICs, management failures do become more relatively important because economic and structural constraints are less binding — London ULEZ controversies are genuinely about management choices, not poverty. The dominant cause varies by place, time, and scale. SYNOPTIC LINKS: 5.2 rural-urban migration — driving population growth in LIC cities beyond management capacity; 6.2 urbanisation — informal settlements expanding faster than formal infrastructure; 4.3 population-resource — carrying capacity of urban infrastructure exceeded; Malthus (population pressure causing degradation) vs management failure as alternative explanation; 12.3 constraints on improvement — the management constraints framework (economic, political, social, technological, legal) directly structures why bad management persists; 13 global interdependence — HIC consumption driving LIC urban degradation independently of local management quality.' },
-
-
-
+</html>
