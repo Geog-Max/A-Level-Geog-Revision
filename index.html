@@ -2733,7 +2733,7 @@
 <div id="tutor" class="section">
   <main style="max-width:1200px;margin:0 auto;padding:1.5rem 2rem;">
     <div style="margin-bottom:1.25rem;">
-      <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;margin-bottom:0.25rem;">&#129302; AI Tutor — <em style="color:var(--accent);font-style:normal;">Dave</em></h2>
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;margin-bottom:0.25rem;">&#129302; AI Tutor — <em style="color:var(--accent);font-style:normal;">Starsky</em></h2>
       <p style="color:var(--muted);font-size:0.9rem;">Your personal CIE A-Level Geography tutor. Ask anything, get explanations, test your knowledge.</p>
     </div>
     <div class="tutor-layout">
@@ -2776,7 +2776,7 @@
         <div class="tutor-header">
           <div class="tutor-avatar">&#129302;</div>
           <div>
-            <div class="tutor-name">Dave</div>
+            <div class="tutor-name">Starsky</div>
             <div class="tutor-status" id="tutor-status-text">&#128994; Ready to help</div>
           </div>
           <div style="margin-left:auto;font-size:0.8rem;color:var(--muted);" id="tutor-topic-label">All topics</div>
@@ -2792,7 +2792,7 @@
           <button class="quick-btn" onclick="sendQuick('What case studies should I know for environmental management?')">Case studies</button>
         </div>
         <div class="tutor-input-wrap">
-          <textarea class="tutor-input" id="tutor-input" placeholder="Ask Dave anything about your Geography course..." rows="1" onkeydown="tutorKeydown(event)" oninput="autoResize(this)"></textarea>
+          <textarea class="tutor-input" id="tutor-input" placeholder="Ask Starsky anything about your Geography course..." rows="1" onkeydown="tutorKeydown(event)" oninput="autoResize(this)"></textarea>
           <button class="tutor-send" id="tutor-send-btn" onclick="sendTutorMessage()">&#10148;</button>
         </div>
       </div>
@@ -4081,7 +4081,7 @@ var TOPIC_CONTEXT = {
   environment: `The student is currently studying Section 12: Environmental Management. Key topics: energy resources (renewable vs non-renewable), energy security (4As: Availability, Affordability, Accessibility, Acceptability), UK electrical energy strategy, environmental degradation (causes, impacts, management), water management. Key case studies: Drax biomass power station, UK offshore wind (Hornsea, Dogger Bank), Aral Sea degradation and restoration, Amazon deforestation (PPCDAm), Great Barrier Reef, Sahel desertification, ULEZ London, Lower Lea Valley Olympic Park remediation.`,
   interdependence: `The student is currently studying Section 13: Global Interdependence. Key topics: trade flows (visible/invisible), factors affecting trade, WTO (strengths/limitations, Doha Round failure, Dispute Settlement Mechanism), free trade agreements (EU Single Market, USMCA/NAFTA, ASEAN, AfCFTA), Fairtrade, international debt crisis (causes, HIPC, BRI/debt trap, G20 Common Framework), international aid (bilateral/multilateral, tied aid, effectiveness), tourism (Butler TALC model, Doxey Irridex, carrying capacity, multiplier effect, ecotourism). Key case studies: Senegal groundnuts, Jamaica tourism (all four TALC phases), Barcelona overtourism, Cockpit Country ecotourism, BRAC Bangladesh, Haiti aid failure, Zambia/Ethiopia HIPC debt relief.`
 }
-var WELCOME_MESSAGE = `Hi! I\'m **Dave**, your CIE A-Level Geography tutor. &#128522;
+var WELCOME_MESSAGE = `Hi! I\'m **Starsky**, your CIE A-Level Geography tutor. &#128522;
 
 I can help you with:
 - **Explaining concepts** like the DTM, push-pull migration, or the WTO
@@ -4094,7 +4094,7 @@ What would you like to work on today? You can select a specific topic on the lef
 
 function initTutor() {
   tutorInitialised = true;
-  addDaveMessage(WELCOME_MESSAGE);
+  addStarskyMessage(WELCOME_MESSAGE);
 }
 
 function setTutorTopic(topic, el) {
@@ -4103,7 +4103,7 @@ function setTutorTopic(topic, el) {
   el.classList.add('active');
   document.getElementById('tutor-topic-label').textContent = TOPIC_LABELS[topic];
   if (topic !== 'general') {
-    addDaveMessage('Great — let\'s focus on **' + TOPIC_LABELS[topic] + '**. What would you like to cover? I can explain key concepts, quiz you, help with essay plans, or review case studies.');
+    addStarskyMessage('Great — let\'s focus on **' + TOPIC_LABELS[topic] + '**. What would you like to cover? I can explain key concepts, quiz you, help with essay plans, or review case studies.');
   }
 }
 
@@ -4164,8 +4164,8 @@ function sendMessage(msg) {
   showTyping();
   tutorIsTyping = true;
   document.getElementById('tutor-send-btn').disabled = true;
-  document.getElementById('tutor-status-text').textContent = '&#9999;&#65039; Dave is thinking...';
-  document.getElementById('tutor-status-text').innerHTML = '&#128992; Dave is thinking...';
+  document.getElementById('tutor-status-text').textContent = '&#9999;&#65039; Starsky is thinking...';
+  document.getElementById('tutor-status-text').innerHTML = '&#128992; Starsky is thinking...';
 
   // Build system prompt
   var systemPrompt = buildSystemPrompt();
@@ -4192,7 +4192,7 @@ function sendMessage(msg) {
     document.getElementById('tutor-status-text').innerHTML = '&#128994; Ready to help';
 
     if (data.error) {
-      addDaveMessage('Sorry, I encountered an error: ' + data.error.message + '. Please check your API key.');
+      addStarskyMessage('Sorry, I encountered an error: ' + data.error.message + '. Please check your API key.');
       return;
     }
 
@@ -4202,19 +4202,19 @@ function sendMessage(msg) {
     // Keep history manageable (last 20 turns)
     if (tutorHistory.length > 40) tutorHistory = tutorHistory.slice(-40);
 
-    addDaveMessage(reply);
+    addStarskyMessage(reply);
     extractAndUpdateProgress(reply, msg);
   }).catch(function(err) {
     hideTyping();
     tutorIsTyping = false;
     document.getElementById('tutor-send-btn').disabled = false;
     document.getElementById('tutor-status-text').innerHTML = '&#128994; Ready to help';
-    addDaveMessage('Sorry, there was a connection error. Please check your internet connection and try again.');
+    addStarskyMessage('Sorry, there was a connection error. Please check your internet connection and try again.');
   });
 }
 
 function buildSystemPrompt() {
-  return `You are Dave, a warm, expert, and encouraging CIE A-Level Geography tutor. Your student is preparing for CIE (Cambridge International Examinations) A-Level Geography, Papers 2 and 4.
+  return `You are Starsky, a warm, expert, and encouraging CIE A-Level Geography tutor. Your student is preparing for CIE (Cambridge International Examinations) A-Level Geography, Papers 2 and 4.
 
 CURRENT TOPIC FOCUS: ${TOPIC_CONTEXT[tutorTopic]}
 
@@ -4235,7 +4235,7 @@ KEY SPECIFICATION CONTENT you know thoroughly: the DTM model, population theorie
 IMPORTANT: You are specifically trained on the CIE A-Level Geography specification. Do not confuse with other exam boards. Paper 2 covers Population, Migration, Settlement (Sections 4, 5, 6). Paper 4 covers Environmental Management and Global Interdependence (Sections 12, 13). Mark schemes reward: named examples with data, ECONOMIC-SOCIAL-ENVIRONMENTAL-POLITICAL structure, TIME/PLACE/SCALE evaluation, synoptic links between sections.`
 }
 
-function addDaveMessage(text) {
+function addStarskyMessage(text) {
   var container = document.getElementById('tutor-messages');
   var div = document.createElement('div');
   div.className = 'msg dave';
@@ -4326,7 +4326,7 @@ window.clearTutorChat = function() {
   tutorTopicsDiscussed.clear();
   document.getElementById('tutor-messages').innerHTML = '';
   updateProgress();
-  addDaveMessage('Chat cleared! Ready to start fresh. What would you like to work on?');
+  addStarskyMessage('Chat cleared! Ready to start fresh. What would you like to work on?');
 };
 
 </script>
