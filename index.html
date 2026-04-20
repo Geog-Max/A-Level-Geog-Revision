@@ -4144,7 +4144,7 @@ window.sendTutorMessage = function() {
 };
 
 function sendMessage(msg) {
-  var key = sessionStorage.getItem('anthropic_key');
+  var key = anthropicApiKey;
   if (!key) {
     showApiModal();
     return;
