@@ -113,7 +113,51 @@
   footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 4rem; }
   @media (max-width: 640px) { header { padding: 0 1rem; } nav button { font-size: 0.7rem; padding: 0.3rem 0.5rem; } main { padding: 1.25rem; } .hero { padding: 3rem 1.25rem 2.5rem; } }
 
-  /* ── AI TUTOR ── */
+  /* ── TEACHER RESOURCES ── */
+  .res-layout { display: grid; grid-template-columns: 300px 1fr; gap: 1.5rem; }
+  @media (max-width: 860px) { .res-layout { grid-template-columns: 1fr; } }
+  .res-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; }
+  .res-panel h3 { font-size: 0.8rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.75rem; }
+  .res-type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+  .res-type-btn { background: var(--surface2); border: 1.5px solid var(--border); border-radius: 10px; padding: 0.6rem 0.5rem; cursor: pointer; font-size: 0.82rem; text-align: center; transition: all 0.15s; color: var(--muted); }
+  .res-type-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+  .res-type-btn.active { background: rgba(56,189,248,0.12); border-color: var(--accent2); color: var(--accent2); font-weight: 600; }
+  .res-type-btn .res-icon { font-size: 1.4rem; display: block; margin-bottom: 0.2rem; }
+  .res-select { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 0.55rem 0.75rem; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.85rem; outline: none; cursor: pointer; margin-bottom: 0.5rem; }
+  .res-select:focus { border-color: var(--accent2); }
+  .res-textarea { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 0.65rem 0.85rem; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.85rem; resize: vertical; min-height: 80px; outline: none; transition: border-color 0.15s; }
+  .res-textarea:focus { border-color: var(--accent2); }
+  .res-generate-btn { width: 100%; background: var(--accent2); color: #0e1117; border: none; border-radius: 10px; padding: 0.75rem; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: opacity 0.15s; margin-top: 0.5rem; }
+  .res-generate-btn:hover { opacity: 0.88; }
+  .res-generate-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .res-output-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; display: flex; flex-direction: column; min-height: 500px; }
+  .res-output-header { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+  .res-output-title { font-weight: 700; font-size: 1rem; color: var(--text); }
+  .res-output-actions { display: flex; gap: 0.5rem; }
+  .res-action-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); padding: 0.35rem 0.85rem; border-radius: 7px; cursor: pointer; font-size: 0.8rem; transition: all 0.15s; }
+  .res-action-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .res-output-body { flex: 1; padding: 1.5rem; overflow-y: auto; font-size: 0.9rem; line-height: 1.7; color: var(--text); }
+  .res-output-body h1 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--accent2); margin: 0 0 0.5rem; }
+  .res-output-body h2 { font-size: 1.05rem; font-weight: 700; color: var(--accent); margin: 1.2rem 0 0.4rem; border-bottom: 1px solid var(--border); padding-bottom: 0.2rem; }
+  .res-output-body h3 { font-size: 0.95rem; font-weight: 700; color: var(--accent3); margin: 0.9rem 0 0.3rem; }
+  .res-output-body p { margin: 0.4rem 0 0.6rem; color: var(--text); }
+  .res-output-body ul, .res-output-body ol { margin: 0.3rem 0 0.6rem 1.4rem; }
+  .res-output-body li { margin-bottom: 0.3rem; }
+  .res-output-body table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.85rem; }
+  .res-output-body th { background: var(--surface2); border: 1px solid var(--border); padding: 0.5rem 0.75rem; text-align: left; font-weight: 600; color: var(--accent2); }
+  .res-output-body td { border: 1px solid var(--border); padding: 0.45rem 0.75rem; vertical-align: top; }
+  .res-output-body tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  .res-output-body .mark-box { background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.25); border-radius: 8px; padding: 0.75rem 1rem; margin: 0.6rem 0; }
+  .res-output-body .exam-tip { background: rgba(56,189,248,0.08); border-left: 3px solid var(--accent2); padding: 0.6rem 1rem; margin: 0.6rem 0; border-radius: 0 6px 6px 0; font-style: italic; color: var(--accent2); }
+  .res-output-body .blank-line { border-bottom: 1px solid var(--border); margin: 0.5rem 0 1rem; height: 1.5rem; }
+  .res-empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 3rem; text-align: center; color: var(--muted); }
+  .res-empty-state .res-empty-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
+  .res-loading { display: flex; align-items: center; justify-content: center; flex: 1; gap: 0.5rem; padding: 3rem; color: var(--muted); }
+  .res-spinner { width: 20px; height: 20px; border: 2px solid var(--border); border-top-color: var(--accent2); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .res-history { display: flex; flex-direction: column; gap: 0.35rem; max-height: 200px; overflow-y: auto; }
+  .res-history-item { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 0.4rem 0.65rem; cursor: pointer; font-size: 0.8rem; color: var(--muted); transition: all 0.15s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .res-history-item:hover { border-color: var(--accent2); color: var(--accent2); }
   .tutor-layout { display: grid; grid-template-columns: 260px 1fr; gap: 1.5rem; height: calc(100vh - 180px); min-height: 500px; }
   @media (max-width: 800px) { .tutor-layout { grid-template-columns: 1fr; height: auto; } }
   .tutor-sidebar { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem; overflow-y: auto; }
@@ -168,6 +212,7 @@
     <button onclick="showSection('notes')">Revision Notes</button>
     <button onclick="showSection('papers')">Past Papers</button>
     <button onclick="showSection('tutor')">&#129302; AI Tutor</button>
+    <button onclick="showSection('resources')">&#128196; Teacher Resources</button>
     <span class="key-status unset" id="key-status" onclick="showApiModal()" title="Click to set your API key">&#128273; No API Key</span>
   </nav>
 </header>
@@ -2729,7 +2774,122 @@
   </main>
 </div>
 
-<!-- AI TUTOR SECTION -->
+<!-- TEACHER RESOURCES SECTION -->
+<div id="resources" class="section">
+  <main style="max-width:1200px;margin:0 auto;padding:1.5rem 2rem;">
+    <div style="margin-bottom:1.25rem;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;">
+      <div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;margin-bottom:0.2rem;">&#128196; Teacher Resource Generator</h2>
+        <p style="color:var(--muted);font-size:0.9rem;">Generate worksheets, PowerPoints, quizzes, essay plans and more — tailored to your class.</p>
+      </div>
+      <div style="background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.3);border-radius:8px;padding:0.4rem 0.85rem;font-size:0.8rem;color:var(--accent2);font-weight:600;">&#128274; School Licence Feature</div>
+    </div>
+
+    <div class="res-layout">
+      <!-- LEFT: Configuration panel -->
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+
+        <!-- Resource type -->
+        <div class="res-panel">
+          <h3>1. Resource Type</h3>
+          <div class="res-type-grid" id="res-type-grid">
+            <button class="res-type-btn active" data-type="worksheet" onclick="selectResType(this)"><span class="res-icon">&#128196;</span>Worksheet</button>
+            <button class="res-type-btn" data-type="powerpoint" onclick="selectResType(this)"><span class="res-icon">&#128250;</span>PowerPoint Plan</button>
+            <button class="res-type-btn" data-type="essay" onclick="selectResType(this)"><span class="res-icon">&#9997;&#65039;</span>Essay Plan</button>
+            <button class="res-type-btn" data-type="quiz" onclick="selectResType(this)"><span class="res-icon">&#10067;</span>Quiz / Test</button>
+            <button class="res-type-btn" data-type="revision" onclick="selectResType(this)"><span class="res-icon">&#128218;</span>Revision Cards</button>
+            <button class="res-type-btn" data-type="markscheme" onclick="selectResType(this)"><span class="res-icon">&#9989;</span>Mark Scheme</button>
+          </div>
+        </div>
+
+        <!-- Topic -->
+        <div class="res-panel">
+          <h3>2. Topic & Subtopic</h3>
+          <select class="res-select" id="res-topic" onchange="updateSubtopics()">
+            <option value="population">4. Population</option>
+            <option value="migration">5. Migration</option>
+            <option value="settlement">6. Settlement Dynamics</option>
+            <option value="environment">12. Environmental Management</option>
+            <option value="interdependence" selected>13. Global Interdependence</option>
+          </select>
+          <select class="res-select" id="res-subtopic">
+            <option value="13.1">13.1 Trade Flows & Trading Patterns</option>
+            <option value="13.2">13.2 International Debt & Aid</option>
+            <option value="13.3">13.3 Development of International Tourism</option>
+            <option value="13.4" selected>13.4 Management of a Tourist Destination — Jamaica</option>
+          </select>
+        </div>
+
+        <!-- Customisation -->
+        <div class="res-panel">
+          <h3>3. Customise</h3>
+          <div style="margin-bottom:0.5rem;">
+            <label style="font-size:0.8rem;color:var(--muted);display:block;margin-bottom:0.3rem;">Specific focus / question (optional)</label>
+            <textarea class="res-textarea" id="res-focus" placeholder="e.g. Focus on the Jamaica case study and include a 20-mark essay question on tourism sustainability. Include space for students to annotate." rows="3"></textarea>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.5rem;">
+            <div>
+              <label style="font-size:0.8rem;color:var(--muted);display:block;margin-bottom:0.3rem;">Ability level</label>
+              <select class="res-select" id="res-ability" style="margin-bottom:0">
+                <option value="mixed">Mixed ability</option>
+                <option value="foundation">Foundation</option>
+                <option value="higher" selected>Higher / A*–B</option>
+                <option value="extension">Extension / Stretch</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:0.8rem;color:var(--muted);display:block;margin-bottom:0.3rem;">Length</label>
+              <select class="res-select" id="res-length" style="margin-bottom:0">
+                <option value="short">Short (20–30 min)</option>
+                <option value="medium" selected>Medium (45–60 min)</option>
+                <option value="full">Full lesson (60+ min)</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label style="font-size:0.8rem;color:var(--muted);display:block;margin-bottom:0.3rem;">Exam board</label>
+            <select class="res-select" id="res-board" style="margin-bottom:0">
+              <option value="CIE" selected>CIE (Cambridge International)</option>
+              <option value="AQA">AQA</option>
+              <option value="Edexcel">Edexcel</option>
+              <option value="OCR">OCR</option>
+              <option value="WJEC">WJEC</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Generate button -->
+        <button class="res-generate-btn" id="res-gen-btn" onclick="generateResource()">&#10024; Generate Resource</button>
+
+        <!-- History -->
+        <div class="res-panel" id="res-history-panel" style="display:none;">
+          <h3>Recent Generations</h3>
+          <div class="res-history" id="res-history-list"></div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Output panel -->
+      <div class="res-output-wrap" id="res-output-wrap">
+        <div class="res-output-header">
+          <div class="res-output-title" id="res-output-title">Generated resource will appear here</div>
+          <div class="res-output-actions">
+            <button class="res-action-btn" onclick="copyResource()" id="res-copy-btn" style="display:none;">&#128203; Copy</button>
+            <button class="res-action-btn" onclick="printResource()" id="res-print-btn" style="display:none;">&#128438; Print / Save PDF</button>
+            <button class="res-action-btn" onclick="clearResource()" id="res-clear-btn" style="display:none;">&#128465; Clear</button>
+          </div>
+        </div>
+        <div id="res-output-body" class="res-output-body">
+          <div class="res-empty-state">
+            <div class="res-empty-icon">&#128196;</div>
+            <p style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Ready to create</p>
+            <p style="font-size:0.85rem;">Choose a resource type, topic, and any customisation on the left, then click Generate.</p>
+            <p style="font-size:0.82rem;margin-top:0.75rem;opacity:0.7;">&#128274; Requires your Anthropic API key — click the key icon in the header.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
 <div id="tutor" class="section">
   <main style="max-width:1200px;margin:0 auto;padding:1.5rem 2rem;">
     <div style="margin-bottom:1.25rem;">
@@ -3783,7 +3943,7 @@ window.showSection = function(id) {
   document.getElementById(id).classList.add('active');
   document.querySelectorAll('nav button').forEach(function(b){ b.classList.remove('active'); });
   var navBtns = document.querySelectorAll('nav button');
-  var map = { home: 0, notes: 1, papers: 2, tutor: 3 };
+  var map = { home: 0, notes: 1, papers: 2, tutor: 3, resources: 4 };
   if (map[id] !== undefined) navBtns[map[id]].classList.add('active');
   window.scrollTo(0, 0);
   if (id === 'papers') renderQuestions('all');
@@ -3913,7 +4073,7 @@ window.submitAnswer = async function(qid, marks) {
         'anthropic-version': '2023-06-01',
         'anthropic-dangerous-direct-browser-access': 'true'
       },
-      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, messages: [{ role: 'user', content: prompt }] })
+      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 1000, messages: [{ role: 'user', content: prompt }] })
     });
     if (!response.ok) {
       var errData = await response.json().catch(function(){ return {}; });
@@ -4056,7 +4216,337 @@ document.addEventListener('DOMContentLoaded', function() {
   renderQuestions('all');
 });
 
-// ── AI TUTOR ─────────────────────────────────────────────────────────────────
+// ── TEACHER RESOURCES ─────────────────────────────────────────────────────
+
+var resType = 'worksheet';
+var resHistory = [];
+var resCurrentOutput = '';
+
+var SUBTOPICS = {
+  population: [
+    ['4.1', '4.1 Natural Increase — Birth Rate & Death Rate'],
+    ['4.2', '4.2 Demographic Transition Model'],
+    ['4.3', '4.3 Population-Resource Relationships'],
+    ['4.4', '4.4 Population Management & Policies'],
+  ],
+  migration: [
+    ['5.1', '5.1 Migration — Causes & Types'],
+    ['5.2', '5.2 Internal Migration'],
+    ['5.3', '5.3 International Migration'],
+    ['5.4', '5.4 Migration Management'],
+  ],
+  settlement: [
+    ['6.1', '6.1 Rural Settlements'],
+    ['6.2', '6.2 Urbanisation'],
+    ['6.3', '6.3 Urban Structure & Land Use'],
+    ['6.4', '6.4 Managing Urban Settlements'],
+  ],
+  environment: [
+    ['12.1', '12.1 Energy Resources'],
+    ['12.2', '12.2 Energy Management'],
+    ['12.3', '12.3 Environmental Degradation'],
+    ['12.4', '12.4 Managing Degraded Environments'],
+  ],
+  interdependence: [
+    ['13.1', '13.1 Trade Flows & Trading Patterns'],
+    ['13.2', '13.2 International Debt & Aid'],
+    ['13.3', '13.3 Development of International Tourism'],
+    ['13.4', '13.4 Management of a Tourist Destination — Jamaica'],
+  ]
+};
+
+var TYPE_LABELS = {
+  worksheet:  'Worksheet',
+  powerpoint: 'PowerPoint Plan',
+  essay:      'Essay Plan',
+  quiz:       'Quiz / Test',
+  revision:   'Revision Cards',
+  markscheme: 'Mark Scheme'
+};
+
+var TYPE_ICONS = {
+  worksheet: '📄', powerpoint: '📺', essay: '✏️',
+  quiz: '❓', revision: '📚', markscheme: '✅'
+};
+
+window.selectResType = function(btn) {
+  document.querySelectorAll('.res-type-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  resType = btn.getAttribute('data-type');
+};
+
+window.updateSubtopics = function() {
+  var topic = document.getElementById('res-topic').value;
+  var sel = document.getElementById('res-subtopic');
+  sel.innerHTML = '';
+  (SUBTOPICS[topic] || []).forEach(function(st) {
+    var opt = document.createElement('option');
+    opt.value = st[0]; opt.textContent = st[1];
+    sel.appendChild(opt);
+  });
+};
+
+function buildResourcePrompt() {
+  var topic = document.getElementById('res-topic').value;
+  var subtopic = document.getElementById('res-subtopic');
+  var subtopicText = subtopic.options[subtopic.selectedIndex].text;
+  var focus = document.getElementById('res-focus').value.trim();
+  var ability = document.getElementById('res-ability').value;
+  var length = document.getElementById('res-length').value;
+  var board = document.getElementById('res-board').value;
+
+  var abilityDesc = { mixed: 'mixed ability', foundation: 'foundation/lower ability', higher: 'higher ability (targeting A*–B)', extension: 'extension/stretch (for highest attainers)' }[ability];
+  var lengthDesc = { short: '20–30 minutes', medium: '45–60 minutes', full: '60+ minutes (full lesson)' }[length];
+
+  var typeInstructions = {
+    worksheet: `Create a structured A-Level Geography WORKSHEET with:
+- A clear title and learning objectives (2-3 bullet points)
+- A brief content summary / reading section (3-5 short paragraphs of key knowledge)
+- Structured questions of increasing difficulty:
+  * 2-3 knowledge/recall questions (2-4 marks each, point-marked style)
+  * 1-2 explanation questions (6-8 marks, level-marked style)  
+  * 1 evaluative essay question (20 marks, with a suggested structure/scaffolding)
+- Key terms box (define 5-8 essential terms)
+- Data/case study box with key statistics to learn
+- Space for student annotations throughout (indicate with [SPACE FOR NOTES] markers)
+- Extension task for early finishers
+Format with clear section headings. Use markdown with headers, tables, and bullet points.`,
+
+    powerpoint: `Create a detailed POWERPOINT SLIDE PLAN (slide-by-slide content guide) with:
+- Slide 1: Title slide — topic, learning objectives (3 bullet points), key question for the lesson
+- Slides 2-3: Context/background content (key concepts, definitions, theoretical framework)
+- Slides 4-6: Main content with case study detail (include specific data and named examples)
+- Slide 7: Analysis slide — comparison table or evaluation framework  
+- Slide 8: Exam practice question with mark scheme guidance
+- Slide 9: Summary — 5 key takeaways, links to other topics (synoptic connections)
+- Slide 10: Homework / extension task
+For each slide, specify: TITLE | MAIN CONTENT POINTS (3-5 bullets) | TEACHER NOTES | SUGGESTED VISUAL/ACTIVITY
+Format clearly with slide numbers and all three sections for each slide.`,
+
+    essay: `Create a comprehensive ESSAY PLAN resource with:
+- 3 different 20-mark essay questions on this topic (in the style of ${board} A-Level exams)
+- For EACH question provide:
+  * The full question text
+  * Decoding the question — what is it really asking? Key command words explained
+  * Suggested essay structure: Introduction → 3-4 main paragraphs → Conclusion
+  * For each paragraph: suggested argument, key evidence/data to include, case studies to reference
+  * Common mistakes to avoid
+  * Synoptic links to name-drop (other sections of the course)
+  * Model conclusion sentence
+- A general essay technique reminder box (ESEP framework, time/place/scale, evaluation language)
+Format with clear structure. Each question should be self-contained.`,
+
+    quiz: `Create a QUIZ / TEST with:
+- Section A: 10 multiple-choice questions (with 4 options each, mark the correct answer)
+- Section B: 8 short-answer questions (2-4 marks each, include mark scheme)
+- Section C: 2 data-response questions (describe a trend + suggest reasons, 4+6 marks)
+- Section D: 1 extended writing question (20 marks, with level descriptors)
+- Full mark scheme at the end for all sections
+- Total: clearly marked. Suggested time: ${lengthDesc}
+Format so Section A-D are clearly separated. Mark scheme clearly separated at end.`,
+
+    revision: `Create a set of REVISION CARDS (digital flashcard style) with:
+- 15-20 revision cards covering the key content
+- Each card has:
+  FRONT: A question, key term, or prompt (e.g. "What is economic leakage?" or "Jamaica — coral reef data")
+  BACK: The model answer (2-5 sentences max, include key statistics and named examples)
+- Organise into themes: Definitions | Data & Statistics | Case Studies | Theories & Models | Evaluation points
+- Include 3-4 "examiner hot tip" cards with common mistakes and how to avoid them
+Format as: CARD [N] | FRONT: [question] | BACK: [answer] — clearly separated`,
+
+    markscheme: `Create a MARK SCHEME resource with:
+- 3 exam questions of different styles (6-mark explain, 20-mark essay, and one other relevant type for this topic)
+- For each question:
+  * The full question text  
+  * Mark scheme with level descriptors (Level 1/2/3 for level-marked; points list for point-marked)
+  * Indicative content — specific points that should be credited
+  * Key case studies and data that would be rewarded
+  * Common student errors — what drops marks
+  * A model answer extract at the top level (Level 3 / full marks quality)
+- General examiner guidance note at the start
+Format clearly with level descriptors in a table format where appropriate.`
+  };
+
+  return `You are an expert ${board} A-Level Geography teacher creating high-quality teaching resources. 
+  
+TOPIC: ${subtopicText}
+RESOURCE TYPE: ${TYPE_LABELS[resType]}
+ABILITY LEVEL: ${abilityDesc}
+LESSON LENGTH: ${lengthDesc}
+EXAM BOARD: ${board}
+${focus ? 'SPECIFIC REQUIREMENTS: ' + focus : ''}
+
+${typeInstructions[resType]}
+
+IMPORTANT GEOGRAPHY CONTENT GUIDELINES:
+- Use precise geographical terminology throughout
+- Include specific named examples, case studies and statistics (e.g. Jamaica coral cover 52%→3%, leakage 40-70%, Negril beach erosion 0.3m/year for tourism topics)
+- Reference relevant geographical theories and models where appropriate (DTM, TALC, Doxey's Irridex, Ravenstein's Laws, etc.)
+- Questions should be in the style of ${board} A-Level examinations
+- Synoptic links between sections (Population ↔ Migration ↔ Settlement ↔ Environment ↔ Interdependence) should be explicitly included
+- All content must be exam-board accurate and specification-aligned
+
+Begin the resource now. Use clear markdown formatting with headers (##, ###), bullet points, tables, and bold text where appropriate.`;
+}
+
+window.generateResource = function() {
+  var key = anthropicApiKey;
+  if (!key) { showApiModal(); return; }
+
+  var topic = document.getElementById('res-topic');
+  var subtopic = document.getElementById('res-subtopic');
+  var subtopicText = subtopic.options[subtopic.selectedIndex].text;
+  var titleText = TYPE_ICONS[resType] + ' ' + TYPE_LABELS[resType] + ' — ' + subtopicText;
+
+  // Show loading
+  document.getElementById('res-output-title').textContent = 'Generating ' + TYPE_LABELS[resType] + '...';
+  document.getElementById('res-output-body').innerHTML = '<div class="res-loading"><div class="res-spinner"></div><span>Creating your resource — this takes 15–30 seconds...</span></div>';
+  document.getElementById('res-gen-btn').disabled = true;
+  document.getElementById('res-copy-btn').style.display = 'none';
+  document.getElementById('res-print-btn').style.display = 'none';
+  document.getElementById('res-clear-btn').style.display = 'none';
+
+  var prompt = buildResourcePrompt();
+
+  fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': key,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 4000,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  }).then(function(r) { return r.json(); }).then(function(data) {
+    document.getElementById('res-gen-btn').disabled = false;
+
+    if (data.error) {
+      document.getElementById('res-output-body').innerHTML = '<div style="color:var(--danger);padding:1rem;">Error: ' + data.error.message + '</div>';
+      return;
+    }
+
+    var raw = data.content && data.content[0] ? data.content[0].text : '';
+    resCurrentOutput = raw;
+
+    // Render markdown-ish content
+    document.getElementById('res-output-title').textContent = titleText;
+    document.getElementById('res-output-body').innerHTML = renderResOutput(raw);
+    document.getElementById('res-copy-btn').style.display = '';
+    document.getElementById('res-print-btn').style.display = '';
+    document.getElementById('res-clear-btn').style.display = '';
+
+    // Add to history
+    resHistory.unshift({ title: titleText, content: raw, html: renderResOutput(raw) });
+    if (resHistory.length > 10) resHistory.pop();
+    updateResHistory();
+
+  }).catch(function(err) {
+    document.getElementById('res-gen-btn').disabled = false;
+    document.getElementById('res-output-body').innerHTML = '<div style="color:var(--danger);padding:1rem;">Connection error. Please check your API key and internet connection.</div>';
+  });
+};
+
+function renderResOutput(text) {
+  // Convert markdown to styled HTML for display
+  var html = text
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    // Tables
+    .replace(/\|(.+)\|\n\|[-| :]+\|\n((?:\|.+\|\n?)+)/g, function(match, header, rows) {
+      var ths = header.split('|').filter(function(c){ return c.trim(); }).map(function(c){ return '<th>' + c.trim() + '</th>'; }).join('');
+      var trs = rows.trim().split('\n').map(function(row) {
+        var tds = row.split('|').filter(function(c){ return c.trim(); }).map(function(c){ return '<td>' + c.trim() + '</td>'; }).join('');
+        return '<tr>' + tds + '</tr>';
+      }).join('');
+      return '<table><thead><tr>' + ths + '</tr></thead><tbody>' + trs + '</tbody></table>';
+    })
+    // Headers
+    .replace(/^# (.+)$/gm, '<h1>$1</h1>')
+    .replace(/^## (.+)$/gm, '<h2>$2</h2>'.replace('$2','$1'))
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^#### (.+)$/gm, '<h3 style="color:var(--pop)">$1</h3>')
+    // Bold/italic
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    // Exam tip boxes
+    .replace(/&gt;(.+)/gm, '<div class="exam-tip">$1</div>')
+    // Lists
+    .replace(/^[-•] (.+)$/gm, '<li>$1</li>')
+    .replace(/^(\d+)\. (.+)$/gm, '<li>$2</li>')
+    .replace(/(<li>[\s\S]*?<\/li>\n?)+/g, function(m){ return '<ul>' + m + '</ul>'; })
+    // Blank lines → paragraphs
+    .replace(/\n\n+/g, '</p><p>')
+    .replace(/\n/g, '<br>');
+
+  return '<p>' + html + '</p>';
+}
+
+function updateResHistory() {
+  var panel = document.getElementById('res-history-panel');
+  var list = document.getElementById('res-history-list');
+  if (resHistory.length === 0) { panel.style.display = 'none'; return; }
+  panel.style.display = '';
+  list.innerHTML = resHistory.map(function(item, i) {
+    return '<div class="res-history-item" onclick="loadResHistory(' + i + ')" title="' + item.title + '">' + item.title + '</div>';
+  }).join('');
+}
+
+window.loadResHistory = function(idx) {
+  var item = resHistory[idx];
+  if (!item) return;
+  resCurrentOutput = item.content;
+  document.getElementById('res-output-title').textContent = item.title;
+  document.getElementById('res-output-body').innerHTML = item.html;
+  document.getElementById('res-copy-btn').style.display = '';
+  document.getElementById('res-print-btn').style.display = '';
+  document.getElementById('res-clear-btn').style.display = '';
+};
+
+window.copyResource = function() {
+  navigator.clipboard.writeText(resCurrentOutput).then(function() {
+    var btn = document.getElementById('res-copy-btn');
+    btn.textContent = '✓ Copied!';
+    setTimeout(function(){ btn.textContent = '📋 Copy'; }, 2000);
+  });
+};
+
+window.printResource = function() {
+  var content = document.getElementById('res-output-body').innerHTML;
+  var title = document.getElementById('res-output-title').textContent;
+  var win = window.open('', '_blank');
+  win.document.write(`<!DOCTYPE html><html><head><title>${title}</title><style>
+    body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 0 20px; font-size: 13px; line-height: 1.7; color: #1a1a1a; }
+    h1 { font-size: 22px; border-bottom: 2px solid #1a1a1a; padding-bottom: 8px; margin-bottom: 16px; }
+    h2 { font-size: 16px; border-bottom: 1px solid #ccc; padding-bottom: 4px; margin-top: 24px; color: #0a5c3a; }
+    h3 { font-size: 14px; color: #c47a00; margin-top: 16px; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    th { background: #f0f0f0; border: 1px solid #999; padding: 6px 10px; text-align: left; font-size: 12px; }
+    td { border: 1px solid #ccc; padding: 5px 10px; vertical-align: top; font-size: 12px; }
+    ul, ol { margin: 6px 0 10px 20px; }
+    li { margin-bottom: 3px; }
+    .exam-tip { background: #e8f4fd; border-left: 3px solid #0e9aa7; padding: 8px 12px; margin: 10px 0; font-style: italic; }
+    .header { text-align: center; margin-bottom: 24px; border-bottom: 2px solid #1a1a1a; padding-bottom: 12px; }
+    .header .school { font-size: 11px; color: #666; margin-top: 4px; }
+    @media print { body { margin: 20px; } }
+  </style></head><body>
+  <div class="header"><strong style="font-size:18px">${title}</strong><div class="school">ExamStar.ai &nbsp;•&nbsp; CIE A-Level Geography &nbsp;•&nbsp; For educational use</div></div>
+  ${content}</body></html>`);
+  win.document.close();
+  win.focus();
+  setTimeout(function(){ win.print(); }, 500);
+};
+
+window.clearResource = function() {
+  resCurrentOutput = '';
+  document.getElementById('res-output-title').textContent = 'Generated resource will appear here';
+  document.getElementById('res-output-body').innerHTML = '<div class="res-empty-state"><div class="res-empty-icon">&#128196;</div><p style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Ready to create</p><p style="font-size:0.85rem;">Choose a resource type, topic, and any customisation on the left, then click Generate.</p></div>';
+  document.getElementById('res-copy-btn').style.display = 'none';
+  document.getElementById('res-print-btn').style.display = 'none';
+  document.getElementById('res-clear-btn').style.display = 'none';
+};
 
 var tutorInitialised = false;
 var tutorHistory = [];
@@ -4180,7 +4670,7 @@ function sendMessage(msg) {
       'anthropic-dangerous-direct-browser-access': 'true'
     },
     body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-4-6',
       max_tokens: 1000,
       system: systemPrompt,
       messages: tutorHistory
